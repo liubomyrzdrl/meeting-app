@@ -1,4 +1,4 @@
-*{
+* {
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -7,7 +7,10 @@
     -o-box-sizing:border-box;
     -ms-box-sizing:border-box;
 }
-
+.create-wrapper {
+    margin-top: 10%;
+    transform: translateX(30%);
+}
 .wrapper {
     min-height: 100vh;
 }
@@ -17,6 +20,7 @@ h1 {
 }
 .main {
   width: 900px;
+  padding-top: 10%;
   margin: 0 auto;
 }
 
@@ -38,13 +42,6 @@ h1 {
         text-decoration: none;
     }
 }
-// tbody {   
- 
-//     .mon__10 {
-//         background-color:#9dedb2;
-    
-//     }
-// }
 .table>:not(caption)>*>* { 
   text-align: center;
   position: relative;

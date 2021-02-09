@@ -1,13 +1,10 @@
-import {useParticipants, participants, eventMeeting } from './store';
-import EventMeeting from './EventMeeting';
+import {useParticipants, participants } from './store'; 
 import { initMeetings } from './utils/initMeetings';
 import { removeEventsFromTable } from './utils/removeEvensFromTable';
 
- 
 let parseJsonStorage;
 let storage = window.localStorage.getItem('metings');
 if(storage === null) {
-    console.log('STORAGE', storage === null)
     parseJsonStorage = [];
 } else if (storage.length === 0 ) {
     parseJsonStorage = [];
@@ -30,11 +27,10 @@ selectParticipants.addEventListener('change', (evt) => {
     } 
 });
 
-const opt =  [];
-
+const options =  [];
 const allParticipant = useParticipants().toString();
 let optionAll = document.createElement('option');
-optionAll.innerHTML = allParticipant;
+optionAll.innerHTML = "All members";
 optionAll.setAttribute('value', 'all');
 
 selectParticipants.append(optionAll);
@@ -43,10 +39,10 @@ participants.map(item => {
     let option = document.createElement('option');
     option.setAttribute('value', item.name);
     option.innerText = item.name;
-    opt.push(option)
+    options.push(option)
 });
 
-opt.forEach(item => {
+options.forEach(item => {
     selectParticipants.append(item);
 });  
 

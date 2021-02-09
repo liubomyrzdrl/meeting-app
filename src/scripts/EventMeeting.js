@@ -1,13 +1,6 @@
-import { v4 as uuid } from 'uuid';
 import { wantDeleteRetrospectiveModal } from './utils/wantDeleteRetrospectiveModal';
 
 class EventMeeting {
-    // id = uuid()
-    // nameEvent = ''
-    // participants = []
-    // day = null
-    // time = null
-
     constructor(nameEvent, day, time, ...participants) {
       this.nameEvent = nameEvent;
       this.participants =  participants;
@@ -30,36 +23,22 @@ class EventMeeting {
        `; 
 
        const closeBlock = document.createElement('div');
-       closeBlock.style = 'cursor: pointer;'
-       
-       
-       const titleBlock = document.createElement('div');
-              
+       closeBlock.style = 'cursor: pointer;'       
+       const titleBlock = document.createElement('div');             
        titleBlock.innerText = `${this.nameEvent}`
-       closeBlock.innerText = 'x';
-       
-       eventBlock.style.backgroundColor = '#9dedb2';
-       
-       
+       closeBlock.innerText = 'x';       
+       eventBlock.style.backgroundColor = '#9dedb2';       
        eventBlock.appendChild(titleBlock);
        eventBlock.appendChild(closeBlock);
        
        const sliceTimeSelector = String(this.time).slice(0,2);
-       const sliceDaySelector = String(this.day).slice(0,3).toLocaleLowerCase();
-       
+       const sliceDaySelector = String(this.day).slice(0,3).toLocaleLowerCase();       
        const eventTableCell = document.querySelector(`.${sliceDaySelector}${sliceTimeSelector}`);
-
       eventTableCell.append(eventBlock); 
-
-
       closeBlock.addEventListener('click', function() {
         wantDeleteRetrospectiveModal(eventTableCell, eventBlock, this.day, this.time);
-      });
-
-       
-    }
-
-     
+      });       
+    }     
 }
 
 export default EventMeeting;

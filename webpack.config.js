@@ -8,7 +8,7 @@ module.exports = {
 
   entry: {
     index: ['./src/scripts/index.js', './src/styles/main.scss',],
-    create: './src/scripts/create.js'
+    create: ['./src/scripts/create.js', './src/styles/main.scss',]
   }
  ,
   output: {

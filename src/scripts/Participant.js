@@ -1,7 +1,4 @@
-import { v4 as uuid } from 'uuid';
-
-class Participant {
-    
+class Participant {    
     constructor(name) {
       this.name = name;
     }
