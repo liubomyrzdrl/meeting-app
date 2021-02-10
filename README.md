@@ -8,3 +8,4 @@ To get started, first install all the necessary dependencies.
 
 ```
 > npm start or yarn start
+
