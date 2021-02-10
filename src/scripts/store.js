@@ -1,4 +1,4 @@
-import Participant  from './Participant';
+import Participant from './Participant';
 
 export const participants = [];
 const Maria = new Participant('Maria');
@@ -9,6 +9,4 @@ participants.push(Maria);
 participants.push(Bob);
 participants.push(Aleks);
 
-export const useParticipants = () => {
-    return participants.map(item => item.name);
-}
+export const useParticipants = () => participants.map((item) => item.name);

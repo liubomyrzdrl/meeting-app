@@ -8,9 +8,9 @@ const isProd = (process.env.NODE_ENV === 'production');
 
 module.exports = {
   entry: {
-    index: ['./src/scripts/index.js', './src/styles/main.scss',],
-    create: ['./src/scripts/create.js', './src/styles/main.scss',]
-  } ,
+    index: ['./src/scripts/index.js', './src/styles/main.scss'],
+    create: ['./src/scripts/create.js', './src/styles/main.scss'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
   },
@@ -34,33 +34,33 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-       use: [
-          !isProd ? 'style-loader': MiniCssExtractPlugin.loader,
-         'css-loader',
-         'sass-loader',
-       ],
-     },
+        use: [
+          !isProd ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      },
     ],
   },
 
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'main.css',
-      chunkFilename: 'main.css'
+      chunkFilename: 'main.css',
     }),
     new ESLintPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "public/index.html",
+      template: 'public/index.html',
       filename: 'index',
-      chunks: ['index']
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      template: "public/create.html",
+      template: 'public/create.html',
       filename: 'create',
-      chunks: ['create']
-    })
-    ],
+      chunks: ['create'],
+    }),
+  ],
   devServer: {
     contentBase: path.join(__dirname, './dist'),
     watchContentBase: true,
