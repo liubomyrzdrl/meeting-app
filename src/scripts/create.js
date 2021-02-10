@@ -3,6 +3,8 @@ import { participants, useParticipants } from './store';
 import { daysOfWeek, timeOfMeeting } from './utils/data';
 import checkEventMeeting from './utils/checkEventMeeting';
 
+console.log('participants', participants);
+
 const createWrapper = document.querySelector('.create-wrapper');
 const labelName = document.createElement('label');
 let nameOfEvent;

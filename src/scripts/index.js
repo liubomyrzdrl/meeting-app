@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import initMeetings from './utils/initMeetings';
 import removeEventsFromTable from './utils/removeEvensFromTable';
-import { useParticipants } from './store';
+import { participants } from './store';
 
 let parseJsonStorage;
 const storage = window.localStorage.getItem('meetings');
@@ -34,8 +34,6 @@ optionAll.innerHTML = 'All members';
 optionAll.setAttribute('value', 'all');
 
 selectParticipants.append(optionAll);
-const participants = useParticipants();
-
 participants.forEach((item) => {
   const option = document.createElement('option');
   option.setAttribute('value', item.name);
