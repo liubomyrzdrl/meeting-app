@@ -5,12 +5,10 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 
 module.exports = {
-
   entry: {
     index: ['./src/scripts/index.js', './src/styles/main.scss',],
     create: ['./src/scripts/create.js', './src/styles/main.scss',]
-  }
- ,
+  } ,
   output: {
     path: path.resolve(__dirname, 'dist'),
     // filename: 'bundle.js',
@@ -22,15 +20,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'eslint-loader',
       },
-      // {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'babel-loader',
-      //   options: {
-      //     presets: [
-      //       { plugins: ['@babel/plugin-proposal-class-properties'] }],
-      //   },
-      // },
       {
         test: /\.html$/,
         use: [
@@ -41,12 +30,9 @@ module.exports = {
             },
           },
         ],
-        // exclude: path.resolve(__dirname, 'public/index.html'),
       },
       {
-      // test: /\.css$/i,
-      // use: ['style-loader' , 'css-loader', 'sass-loader'],
-        test: /\.scss$/,
+         test: /\.scss$/,
         use: [
         // fallback to style-loader in development
           process.env.NODE_ENV !== 'production'
@@ -62,12 +48,6 @@ module.exports = {
   plugins: [
     new ESLintPlugin(),
     new CleanWebpackPlugin(),
-    // new HtmlWebpackPlugin({
-    //   title: 'Output Management',
-    //   filename: 'index.html',
-    //   template: 'public/index.html',
-    //   inject: 'body',
-    // }),
     new HtmlWebpackPlugin({
       template: "public/index.html",
       filename: 'index',
@@ -83,9 +63,7 @@ module.exports = {
     contentBase: path.join(__dirname, './dist'),
     watchContentBase: true,
     open: true,
-
     compress: true,
     port: 9000,
-
   },
 };

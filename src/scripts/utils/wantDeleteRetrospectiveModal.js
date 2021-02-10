@@ -1,17 +1,14 @@
-export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, time) {
+export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock) {
     let result;
     const eventTableCellClass = eventTableCell.className;
-    const storage = window.localStorage.getItem("metings");
+    const storage = window.localStorage.getItem("meetings");
     const parseJsonStorage = JSON.parse(storage);
     const filteredMeetings = parseJsonStorage.filter(item => {
         let sliceTimeSelector = String(item.nameOfTime).slice(0, 2);
         let sliceDaySelector = String(item.nameOfDay).slice(0, 3).toLocaleLowerCase();
-        return String(eventTableCellClass) !==  `${sliceDaySelector}${sliceTimeSelector}`
-
+        return String(eventTableCellClass) !== `${sliceDaySelector}${sliceTimeSelector}`;
     });
-   console.log('filteredMeetings', filteredMeetings );
-   window.localStorage.setItem("metings", JSON.stringify(filteredMeetings));
-
+    window.localStorage.setItem("meetings", JSON.stringify(filteredMeetings));
     const modalWrapper = document.createElement('div');
     const modal = document.createElement('div');
     const btnBlock = document.createElement('div');
@@ -22,15 +19,15 @@ export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, ti
         margin-left: 10%; 
         margin-bottom: 3%; 
         width: 80%;
-    `
+    `;
     const btnYes = document.createElement('button');
     btnYes.addEventListener('click', function() {
-        console.log('eventTableCell',eventTableCell)
         eventTableCell.removeChild(eventBlock);
         wrapper.removeChild(modalWrapper);
         wrapper.removeChild(modal);
     });
     btnYes.innerText = "Yes";
+    btnYes.setAttribute("class", "btn btn-success");
     btnYes.style = `
         padding: 3% 16%;
         border-radius: 12px;
@@ -42,10 +39,10 @@ export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, ti
         result = false;
     });
     btnNo.innerText = "No";
-
+    btnNo.setAttribute("class", "btn btn-warning");
     btnNo.style = `
         padding: 3% 16%;
-        border-radius: 12px;
+        border-radius: 12px;        
     `;
     btnBlock.appendChild(btnNo);
     btnBlock.appendChild(btnYes);
@@ -57,7 +54,7 @@ export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, ti
         height: 100%; 
         bottom: 0;
         z-index: 1;
-    `
+    `;
     const text = document.createElement('div');
     text.style = `
         margin-top: 5%;
@@ -66,7 +63,6 @@ export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, ti
         margin-left: 3%; 
         font-size: 1.3rem;
         text-align: center;
-
     `;
     text.innerText = 'Are you sure you wand to delete "Retrospective event"?';
     modal.appendChild(text);
@@ -82,12 +78,9 @@ export function wantDeleteRetrospectiveModal(eventTableCell, eventBlock, day, ti
         top: 18%;
         right: 37%;
     `;
-    modal.appendChild(btnBlock);
-  
-  
+    modal.appendChild(btnBlock);  
     const wrapper = document.querySelector('.wrapper');
     wrapper.appendChild(modalWrapper);
-    wrapper.appendChild(modal);
-    
+    wrapper.appendChild(modal);    
     return result;
 }

@@ -17,13 +17,13 @@ form.addEventListener('submit', function(evt) {
     nameOfParticipant = form.elements['nameOfParticipant'].value;
     nameOfDay = form.elements['nameOfDay'].value;
     nameOfTime = form.elements['nameOfTime'].value; 
-    let metings = meetingStorage.getItem('metings');
+    let metings = meetingStorage.getItem('meetings');
     if(nameOfEvent === "") { 
         labelName.appendChild(error);
-        return
+        return;
     }
-    if(!metings) {
-        meetingStorage.setItem('metings', JSON.stringify([{
+    if(!metings) {      
+        meetingStorage.setItem('meetings', JSON.stringify([{
            nameOfEvent,
            nameOfDay,
            nameOfTime,
@@ -32,7 +32,7 @@ form.addEventListener('submit', function(evt) {
     } else {
         let parseJsonStorage = JSON.parse(metings);
         result = checkEventMeeting(parseJsonStorage, nameOfDay, nameOfTime);
-        if(!result) {        
+        if(result) {        
             const errorMessage = document.createElement('div');
             const cancelError = document.createElement('span');
             cancelError.innerText = "X";
@@ -43,7 +43,6 @@ form.addEventListener('submit', function(evt) {
                 top: -20%;
                 left: 391px;
             `;
-
             errorMessage.innerText = "Failed to create an event. This slot is alredy booked";
             errorMessage.style = `
                 color: red;
@@ -60,9 +59,9 @@ form.addEventListener('submit', function(evt) {
             });
             return
     }
-    meetingStorage.setItem('metings', JSON.stringify([
+    meetingStorage.setItem('meetings', JSON.stringify([
         ...parseJsonStorage,
-        {nameOfEvent, nameOfDay, nameOfTime, nameOfParticipant }
+        { nameOfEvent, nameOfDay, nameOfTime, nameOfParticipant }
     ]));
     }
     form.elements['nameOfEvent'].value = "";
@@ -91,8 +90,7 @@ const labeSelectParticipant = document.createElement('label');
 labeSelectParticipant.style = `display: block; font-size: 1.6rem; margin-bottom: 2%;`; 
 labeSelectParticipant.innerText = "Participants:";
 labeSelectParticipant.appendChild(selectParticipants);
-const options =  [];
-
+const options = [];
 const allParticipant = useParticipants().toString();
 let optionAll = document.createElement('option');
 optionAll.innerHTML = allParticipant;
@@ -107,7 +105,6 @@ participants.map(item => {
 options.forEach(item => {
     selectParticipants.append(item);
 });    
-
 
 const labelDayOfWeek = document.createElement('label');
 labelDayOfWeek.innerText = "Day:";
@@ -135,7 +132,6 @@ const selectTime = document.createElement('select');
 selectTime.setAttribute("name", "nameOfTime");
 selectTime.style = `font-size: 1rem; margin-left: 7.5%;`;
 let optionSelectedTime = []; 
-
 timeOfMeeting.forEach(item => {
     let option = document.createElement('option');
     option.setAttribute('value', item);
@@ -158,8 +154,7 @@ const btnCancel = document.createElement('button');
 btnCancel.setAttribute("class", "btn btn-warning");
 btnCancel.setAttribute("type", "button");
 btnCancel.innerText ="Cancel";
-btnCancel.addEventListener('click', function(evt) {
-    console.log('btnCancel', evt.target.value);
+btnCancel.addEventListener('click', function() {
     window.history.back();
 });
 

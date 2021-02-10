@@ -3,14 +3,13 @@ import { initMeetings } from './utils/initMeetings';
 import { removeEventsFromTable } from './utils/removeEvensFromTable';
 
 let parseJsonStorage;
-let storage = window.localStorage.getItem('metings');
+let storage = window.localStorage.getItem('meetings');
 if(storage === null) {
     parseJsonStorage = [];
-} else if (storage.length === 0 ) {
-    parseJsonStorage = [];
-} else {
+    } else {
     parseJsonStorage = JSON.parse(storage);
 }
+
 const selectParticipants = document.createElement('select');
 selectParticipants.setAttribute("name", "nameOfParticipant");
 selectParticipants.setAttribute("class", "form-select");
@@ -27,7 +26,7 @@ selectParticipants.addEventListener('change', (evt) => {
     } 
 });
 
-const options =  [];
+const options = [];
 const allParticipant = useParticipants().toString();
 let optionAll = document.createElement('option');
 optionAll.innerHTML = "All members";

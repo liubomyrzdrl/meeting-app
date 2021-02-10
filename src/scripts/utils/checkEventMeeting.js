@@ -2,11 +2,11 @@ export function checkEventMeeting (storage, day, time ) {
     let result;
     storage.forEach(item => {
         if(item.nameOfDay === day && item.nameOfTime === time) {
-            result = false
+            console.log('TestcheckEventMeeting', item.nameOfDay, day,item.nameOfTime, time);
+            result = true;
         } else {
-          result = true
+          result = false;
         }  
     })
-    return result
-
+    return result;
 }
