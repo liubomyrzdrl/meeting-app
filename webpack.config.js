@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isProd = (process.env.NODE_ENV === 'production');
 
 module.exports = {
   entry: {
@@ -11,7 +13,6 @@ module.exports = {
   } ,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    // filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -32,20 +33,21 @@ module.exports = {
         ],
       },
       {
-         test: /\.scss$/,
-        use: [
-        // fallback to style-loader in development
-          process.env.NODE_ENV !== 'production'
-            ? 'style-loader'
-            : MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-        ],
-      },
+        test: /\.scss$/,
+       use: [
+          !isProd ? 'style-loader': MiniCssExtractPlugin.loader,
+         'css-loader',
+         'sass-loader',
+       ],
+     },
     ],
   },
 
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'main.css',
+      chunkFilename: 'main.css'
+    }),
     new ESLintPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
