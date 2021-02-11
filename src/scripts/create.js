@@ -3,8 +3,6 @@ import { participants, useParticipants } from './store';
 import { daysOfWeek, timeOfMeeting } from './utils/data';
 import checkEventMeeting from './utils/checkEventMeeting';
 
-console.log('participants', participants);
-
 const createWrapper = document.querySelector('.create-wrapper');
 const labelName = document.createElement('label');
 let nameOfEvent;
@@ -15,9 +13,9 @@ let result;
 
 const meetingStorage = window.localStorage;
 const error = document.createElement('div');
+error.setAttribute('class', 'error-input');
 error.innerText = 'Name of event is required';
 error.style = 'color: red;';
-
 const form = document.createElement('form');
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -30,6 +28,11 @@ form.addEventListener('submit', (evt) => {
     labelName.appendChild(error);
     return;
   }
+
+  const errorNameOfEvent = document.querySelector('.error-input');
+  if (errorNameOfEvent) {
+    labelName.removeChild(errorNameOfEvent);
+  }
   if (!metings) {
     meetingStorage.setItem('meetings', JSON.stringify([{
       nameOfEvent,
@@ -39,10 +42,18 @@ form.addEventListener('submit', (evt) => {
     }]));
   } else {
     const parseJsonStorage = JSON.parse(metings);
+    const errorMessage = document.createElement('div');
+    errorMessage.setAttribute('class', 'error-create');
+    const cancelError = document.createElement('span');
+    cancelError.setAttribute('class', 'error-cancel');
+    const ifErrorCreate = document.querySelector('.error-create');
+    const cancelErrorIcon = document.querySelector('.error-cancel');
+    if (ifErrorCreate) {
+      createWrapper.removeChild(ifErrorCreate);
+      createWrapper.removeChild(cancelErrorIcon);
+    }
     result = checkEventMeeting(parseJsonStorage, nameOfDay, nameOfTime);
     if (result) {
-      const errorMessage = document.createElement('div');
-      const cancelError = document.createElement('span');
       cancelError.innerText = 'X';
       cancelError.style = `
                 color: red; 
@@ -86,7 +97,7 @@ input.setAttribute('type', 'text');
 input.setAttribute('class', 'form-control');
 input.setAttribute('type', 'text');
 input.setAttribute('name', 'nameOfEvent');
-error.setAttribute('class', 'error-input');
+
 labelName.append(input);
 
 const selectParticipants = document.createElement('select');
